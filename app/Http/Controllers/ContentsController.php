@@ -84,15 +84,32 @@ class ContentsController extends Controller
         'genre_id' => 'required',
         'media_title' => 'required',
         'description' => 'required',
-        'media_file' => 'nullable',
-        ]);
+        'media_file' => 'nullable|mimes:mp3,wav|max:10000',
+    ]);
+
+    $data = $request->only(['genre_id', 'media_title', 'description']);
+
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploaded\media'), $filename);
+        
+        $data['media_file'] = $filename;
+    } else {
+        $data['media_file'] = $content->media_file;
+    }
+    $content->update($data);
+
+   
+
         $content->update([
         'genre_id' => $request->genre_id,
         'media_title' => $request->media_title,
         'description' => $request->description,
         'media_file' => $request->media_file,
     ]);
-        return redirect('content');
+    
+        return redirect()->route('content.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**
