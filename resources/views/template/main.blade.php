@@ -12,7 +12,7 @@
         <aside class="sidebar">
             <div class="sidebar-logo">
                 <div class="logo-icon"></div>
-                <span class="logo-text">RPL-MUSIC</span>
+                <span class="logo-text">MUSIC-RPL</span>
             </div>
 
             <ul class="nav-menu">

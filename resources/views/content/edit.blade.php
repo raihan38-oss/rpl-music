@@ -20,7 +20,7 @@
 @METHOD('PUT')
 <div class="form-group">
 <label for="title">Media Title :</label>
-<input type="text" name="media_title" id="media_title" value="{{ old('media_title', $content->media_title) }}">
+<input type="text" name="media_title" id="media_title" value="{{ old('media_title', $content->media_title) }}" class="form-input">
 </div>
 
 <div class="form-group">
@@ -34,7 +34,7 @@
 
 <div class="form-group">
     <label for="description">Description :</label>
-    <textarea name="description" id="description" cols="30" rows="3">{{ old('description', $content->description)}}</textarea>
+    <textarea name="description" id="description" cols="30" rows="3" class="form-input">{{ old('description', $content->description)}} </textarea>
     @error('description')
         {{ $message }}
     @enderror

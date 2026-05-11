@@ -36,7 +36,7 @@
         <label for="password">password :</label>
         <div class="password-wrapper">
         <input type="password" name="password" id="password" class="form-input">
-        <button type="button" class="toggle-password" onclick="togglePassword(event)">👻 Lihat</button>
+        <button type="button" class="toggle-password" onclick="togglePassword(event)">🔍 Lihat</button>
         </div>
         @error('password')
         <p style="color: red">{{ $message }}</p>
@@ -55,10 +55,10 @@ function togglePassword(event) {
 
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        toggleBtn.textContent = '👻 Sembunyikan';
+        toggleBtn.textContent = '🔍 Sembunyikan';
     } else {
         passwordInput.type = 'password';
-        toggleBtn.textContent = '👻 Lihat';
+        toggleBtn.textContent = '🔍 Lihat';
     }
 }
 </script>

@@ -178,8 +178,8 @@ body{
 }
 
 .nav-link:hover{
-    background-color: whitesmoke;
-    color: #6b5fff;
+    background-color: #6b5fff;
+    color: white;
 }
 
 .nav-link.active{

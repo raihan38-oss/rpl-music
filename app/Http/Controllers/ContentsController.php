@@ -87,29 +87,29 @@ class ContentsController extends Controller
         'media_file' => 'nullable|mimes:mp3,wav|max:10000',
     ]);
 
-    $data = $request->only(['genre_id', 'media_title', 'description']);
+    $directory = 'uploaded/media';
+    $fileName = $content->media_file;
 
-    if ($request->hasFile('media_file')) {
+    if($request->hasFile('media_file')){
         $file = $request->file('media_file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('uploaded\media'), $filename);
-        
-        $data['media_file'] = $filename;
-    } else {
-        $data['media_file'] = $content->media_file;
+
+    $fileName = "media_file_".time().'.'.$file->getClientOriginalExtension();
+    $file->move(public_path($directory), $fileName);
+
+        $oldFilePath = public_path($directory . '/' . $content->getOriginal('media_file'));
+        if(File::exists($oldFilePath)){
+            File::delete($oldFilePath);
+        }
     }
-    $content->update($data);
-
-   
-
+  
         $content->update([
         'genre_id' => $request->genre_id,
         'media_title' => $request->media_title,
         'description' => $request->description,
-        'media_file' => $request->media_file,
+        'media_file' => $fileName,
     ]);
     
-        return redirect()->route('content.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('content.index');
     }
 
     /**
