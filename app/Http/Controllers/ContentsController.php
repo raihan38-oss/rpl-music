@@ -115,7 +115,8 @@ class ContentsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contents $content) {
+    public function destroy(Contents $content) 
+    {
     $content->delete();
     return redirect()->route('content.index');
     }

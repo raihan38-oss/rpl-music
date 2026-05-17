@@ -38,6 +38,8 @@ route::resource('genres', GenresController::class);
 
 Route::resource('content', ContentsController::class);
 
+Route::resource('content', UserController::class);
+
 Route::get('template',function(){
     return view('template.main');
 });
