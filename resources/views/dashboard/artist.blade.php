@@ -6,7 +6,7 @@
                 <input type="text" name="search" id="search" placeholder="Cari Data">
             </div>
             <div class="header-action">
-                <a href="{{ route('content.create') }}" class="btn primary">📊 Add Data</a>
+                <a href="{{ route('content.create') }}" class="btn primary">📊 Tambah Content</a>
             <div>
                 {{ auth()->user()->name }}
             </div>

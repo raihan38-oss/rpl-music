@@ -2,44 +2,48 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\http\Controllers\GenresController;
-use App\http\Controllers\ContentsController;
+use App\Http\Controllers\GenresController;
+use App\Http\Controllers\ContentsController;
+use App\Http\Controllers\UserController; 
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Route Login & Logout
+Route::get('', [LoginController::class, 'index'])->name('login');
+Route::post('', [LoginController::class, 'check']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); 
 
-Route::get('', [LoginController::class,'index'])->name('login');
-Route::post('', [LoginController::class,'check']);
-Route::post('/logout', [LoginController::class,'logout'])->name('logout'); 
-
+// Route Dashboard Berdasarkan Role
 Route::middleware('auth', 'checkrole:admin')->get('/admin', function(){
     return view('dashboard.admin');
 })->name('admin');
+
 Route::middleware('auth', 'checkrole:artist')->get('/artist', function(){
     return view('dashboard.artist');
 })->name('artist');
+
 Route::middleware('auth', 'checkrole:user')->get('/user', function(){
     return view('dashboard.user');
 })->name('user_dashboard');
 
-route::resource('genres', GenresController::class);
-
+// Route Resource Kelola Musik & Genre
+Route::resource('genres', GenresController::class);
 Route::resource('content', ContentsController::class);
 
-Route::resource('content', UserController::class);
 
-Route::get('template',function(){
+//====================
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('kelola-user', UserController::class)->names('user');
+}); 
+
+//=====================
+
+
+Route::get('template', function(){
     return view('template.main');
 });

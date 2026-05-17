@@ -16,27 +16,34 @@
             </div>
 
             <ul class="nav-menu">
-                @if(auth()->user()->role === 'admin')
+            @if(auth()->user()->role === 'admin')
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link {{ request()->routeIs('admin') ? 'active' : ''}}">🏚️Home</a></li>
-                <li class="nav-item"><a href="{{ route('genres.index') }}" class="nav-link {{ request()->routeIs('genre.*') ? 'active' : ''}}">🎼Genre</a></li>
+                
+                <li class="nav-item"><a href="{{ route('genres.index') }}" class="nav-link {{ request()->routeIs('genres.*') ? 'active' : ''}}">🎼Genre</a></li>
+                
                 <li class="nav-item"><a href="{{ route('content.index') }}" class="nav-link {{ request()->routeIs('content.*') ? 'active' : ''}}">🎵Content</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">👤User</a></li>
+                
+                <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ request()->routeIs('user.*') ? 'active' : ''}}">👤User</a></li>
+            @endif
 
-                @endif
-
-                @if(auth()->user()->role === 'artist')
+            @if(auth()->user()->role === 'artist')
                 <li class="nav-item"><a href="{{ route('artist') }}" class="nav-link {{ request()->routeIs('admin') ? 'active' : ''}}">🏚️Home</a></li>
                 <li class="nav-item"><a href="{{ route('content.index') }}" class="nav-link {{ request()->routeIs('content.*') ? 'active' : ''}}">🎵Content</a></li>
+                <li class="nav-item">
+                    <a href="{{ route('user.create') }}" class="nav-link {{ request()->routeIs('user.create') ? 'active' : ''}}">👤User</a>
+                </li>   
+            @endif
 
-                @endif
-
-                @if(auth()->user()->role === 'user')
-                <li class="nav-item"><a href="{{ route('user_dashboard') }}" class="nav-link {{ request()->routeIs('admin') ? 'active' : ''}}">🏚️Home</a></li>
+             @if(auth()->user()->role === 'user')
+                <li class="nav-item"><a href="{{ route('user_dashboard') }}" class="nav-link {{ request()->routeIs('user_dashboard') ? 'active' : ''}}">🏚️Home</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">⏯️Playlist</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">👀Terbaru</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">👤User</a></li>
 
-                @endif
+                <li class="nav-item">
+                    <a href="{{ route('user.create') }}" class="nav-link {{ request()->routeIs('user.create') ? 'active' : ''}}">👤User</a>
+                </li>
+            @endif
+            
             </ul>
             
         </aside>
@@ -45,4 +52,4 @@
         </main>
     </div>
 </body>
-</html>
+</html> 

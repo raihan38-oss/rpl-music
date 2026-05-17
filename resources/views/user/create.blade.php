@@ -1,3 +1,71 @@
-<div>
-    <!-- Nothing worth having comes easy. - Theodore Roosevelt -->
-</div>
+@extends('template.main')  
+@section('content')
+
+<header class="header">
+    <div class="search-bar">
+        <input type="text" name="search" id="search" placeholder="Cari Data">
+    </div>
+    <div class="header-action">
+        <a href="{{ route('user.index') }}" class="btn primary">📊 Kembali</a>
+        <div>
+            {{ auth()->user()->name }}
+        </div>
+    </div>
+</header>
+
+<h1>Create User</h1>
+
+<form action="{{ route('user.store') }}" method="post">
+    @csrf
+    
+    <div>
+        <label for="name">Nama:</label>
+        <input type="text" name="name" id="name" class="form-input" value="{{ old('name') }}">
+        @error('name')
+            <span style="color: red">{{ $message }}</span>
+        @enderror
+    </div>
+    
+    <br>
+    
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" class="form-input" value="{{ old('email') }}">
+        @error('email')
+            <span style="color: red">{{ $message }}</span>
+        @enderror
+    </div>
+    
+    <br>
+    
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" class="form-input">
+        
+        <div>
+            <input type="checkbox" id="show-password" onclick="togglePassword()">
+            <label for="show-password">Lihat Password</label>
+        </div>
+
+        @error('password')
+            <span style="color: red">{{ $message }}</span>
+        @enderror
+    </div>
+    
+    <br>
+    
+    <button class="btn primary" type="submit">Simpan</button>    
+</form>
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+
+@endsection

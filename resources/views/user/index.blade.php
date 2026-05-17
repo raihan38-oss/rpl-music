@@ -7,7 +7,7 @@
                 <input type="text" name="search" id="search" placeholder="Cari Data">
             </div>
             <div class="header-action">
-                <a href="{{ route('user.create') }}" class="btn primary">🎼Genre</a>
+                <a href="{{ route('user.create') }}" class="btn primary">👤Tambah data</a>
             <div>
                 {{ auth()->user()->name }}
             </div>
@@ -26,7 +26,7 @@
         <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($genres as $row)
+        @foreach ($user as $row)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td> {{ $row->name}}</td>

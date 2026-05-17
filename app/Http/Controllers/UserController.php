@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\User; 
+use Illuminate\Support\Facades\Hash; 
 
 class UserController extends Controller
 {
@@ -21,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+    return view('user.create'); 
     }
 
     /**
@@ -29,64 +30,72 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate ([
+        $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            // 'role',
-            // 'profile_pict'
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
         ]);
 
-        genres::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
-            'role' => 'test',
-            'profile_pict' => 'test'
+            'password' => Hash::make($request->password), 
+            'role' => 'user', 
+            'profile_pict' => 'default.png' 
         ]);
+
         return redirect()->route('user.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user) 
     {
-        //
+        return view('user.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+    public function edit(User $kelola_user)
     {
-        return view('user.edit', compact('user'));
+        return view('user.edit', ['user' => $kelola_user]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $kelola_user) 
     {
     $request->validate([
         'name' => 'required',
-        'email' => 'required',
-        'password' => 'required'
+        // KUNCI: Tambahkan $kelola_user->id setelah koma untuk mengecualikan email sendiri
+        'email' => 'required|email|unique:users,email,' . $kelola_user->id,
+        'password' => 'nullable|min:6'
     ]);
 
-    $user->update([
+    $data = [
         'name' => $request->name,
         'email' => $request->email,
-        'password' => $request->password
-    ]);
+    ];
+
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
+    }
+
+    $kelola_user->update($data);
+
+    return redirect()->route('user.index')->with('success', 'User berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user) 
     {
         $user->delete(); 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus.');
     }
 }
