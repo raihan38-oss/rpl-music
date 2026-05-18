@@ -41,7 +41,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password), 
             'role' => 'user', 
-            'profile_pict' => 'default.png' 
+            'profile_pict' => 'test' 
         ]);
 
         return redirect()->route('user.index');
@@ -71,7 +71,6 @@ class UserController extends Controller
     {
     $request->validate([
         'name' => 'required',
-        // KUNCI: Tambahkan $kelola_user->id setelah koma untuk mengecualikan email sendiri
         'email' => 'required|email|unique:users,email,' . $kelola_user->id,
         'password' => 'nullable|min:6'
     ]);

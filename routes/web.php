@@ -30,18 +30,14 @@ Route::middleware('auth', 'checkrole:user')->get('/user', function(){
     return view('dashboard.user');
 })->name('user_dashboard');
 
-// Route Resource Kelola Musik & Genre
+
 Route::resource('genres', GenresController::class);
 Route::resource('content', ContentsController::class);
 
 
-//====================
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('kelola-user', UserController::class)->names('user');
-}); 
 
-//=====================
+Route::resource('kelola-user', UserController::class)->names('user');
 
 
 Route::get('template', function(){

@@ -56,15 +56,5 @@
     <button class="btn primary" type="submit">Perbarui Data</button>    
 </form>
 
-<script>
-    function togglePassword() {
-        var passwordField = document.getElementById("password");
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-        } else {
-            passwordField.type = "password";
-        }
-    }
-</script>
 
 @endsection
